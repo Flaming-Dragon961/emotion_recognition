@@ -18,13 +18,13 @@ camera = cv2.VideoCapture(0)
 count = 0
 emotion = "neutral"
 while True:
-    read, frame = camera.read()
+    read,frame = camera.read()
     if not read:
         break
     count+=1
     try:
-        if count % 15 == 0:
-            results = DeepFace.analyze(frame,actions=["emotion"],enforce_detection=False)
+        if count % 3 == 0:
+            results = DeepFace.analyze(frame,actions=["emotion"],enforce_detection=False,detector_backend="opencv")
             if isinstance(results, dict):
                 emotion = results["dominant_emotion"]
             else:
