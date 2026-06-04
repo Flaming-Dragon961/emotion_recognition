@@ -46,7 +46,7 @@ while True:
     except Exception as e:
         cv2.imshow("Face Emotion Recognition", frame)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(1) == ord('q'):
         break
 
 camera.release()
