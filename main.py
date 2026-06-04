@@ -1,5 +1,8 @@
 from deepface import DeepFace
 import cv2
+from collections import deque, Counter
+
+avg = deque(maxlen=15)
 
 images = {
     "happy": "img/happy.jpg",
@@ -20,12 +23,14 @@ while True:
         break
     count+=1
     try:
-        if count % 10 == 0:
+        if count % 15 == 0:
             results = DeepFace.analyze(frame,actions=["emotion"],enforce_detection=False)
             if isinstance(results, dict):
                 emotion = results["dominant_emotion"]
             else:
                 emotion = results[0]["dominant_emotion"]
+            avg.append(emotion)
+            emotion = Counter(history).most_common(1)[0][0]
         cv2.putText(frame, emotion, (50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
         cv2.putText(frame, "Press Q to quit", (10, 470),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
         emotion_img_path = images.get(emotion, "img/neutral.png")
