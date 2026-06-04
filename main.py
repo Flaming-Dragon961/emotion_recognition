@@ -30,7 +30,7 @@ while True:
             else:
                 emotion = results[0]["dominant_emotion"]
             avg.append(emotion)
-            emotion = Counter(history).most_common(1)[0][0]
+            emotion = Counter(avg).most_common(1)[0][0]
         cv2.putText(frame, emotion, (50, 50),cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
         cv2.putText(frame, "Press Q to quit", (10, 470),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
         emotion_img_path = images.get(emotion, "img/neutral.png")
